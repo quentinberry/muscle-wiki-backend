@@ -8,8 +8,6 @@ import cors from "cors";
 import mongoose from "mongoose";
 import router from "./router";
 
-console.log(process.env.USERNAME);
-
 const app = express();
 
 app.use(compression());
@@ -30,9 +28,3 @@ mongoose.connect(MONGO_URL);
 mongoose.connection.on("error", (error: Error) => console.log(error));
 
 app.use("/", router());
-/*
-app.get("/", (_req: any, res: any) => {
-  res.send("hi there, you should not be here");
-});
-*/
-console.log("hi");

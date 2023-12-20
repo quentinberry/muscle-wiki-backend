@@ -7,7 +7,7 @@ const MuscleWikiExerciseSchema = new mongoose.Schema({
   secondaryTargetMuscleDetailed: { type: [String], required: false },
   equipmentNeeded: { type: [String], required: false },
   alternativeExerciseID: { type: [Number], required: false },
-  Description: { type: String, required: true },
+  description: { type: String, required: true },
   unilateral: { type: Boolean, required: true },
   thumbnailImage: { type: String, required: false },
 });
@@ -19,6 +19,18 @@ export const MuscleWikiExerciseModel = mongoose.model(
 
 export const getExercises = () => MuscleWikiExerciseModel.find();
 export const getExerciseByPrimaryTargetMuscle = (primaryMuscle: string) =>
-  MuscleWikiExerciseModel.find().where(primaryMuscle);
-
-//more to come
+  MuscleWikiExerciseModel.find({
+    primaryTargetMuscle:
+      primaryMuscle.toLowerCase().charAt(0).toUpperCase() +
+      primaryMuscle.toLowerCase().slice(1),
+  });
+export const getExerciseBySecondaryTargetMuscle = (secondaryMuscle: string) =>
+  MuscleWikiExerciseModel.find({
+    secondaryTargetMuscle:
+      secondaryMuscle.toLowerCase().charAt(0).toUpperCase() +
+      secondaryMuscle.toLowerCase().slice(1),
+  });
+export const addExercise = (values: Record<string, any>) =>
+  new MuscleWikiExerciseModel(values)
+    .save()
+    .then((exercise) => exercise.toObject());
