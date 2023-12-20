@@ -1,9 +1,9 @@
 import express from "express";
-import authentication from "./authentication";
+import wiki from "./wiki";
 
 const router = express.Router();
 
 export default (): express.Router => {
-  authentication(router);
+  wiki(router);
   return router;
 };

@@ -1,3 +1,4 @@
+require("dotenv").config();
 import express from "express";
 import http from "http";
 import bodyParser from "body-parser";
@@ -7,13 +8,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import router from "./router";
 
-const app = express();
+console.log(process.env.USERNAME);
 
-app.use(
-  cors({
-    credentials: true,
-  })
-);
+const app = express();
 
 app.use(compression());
 app.use(cookieParser());
@@ -22,8 +19,7 @@ app.use(bodyParser.json());
 const server = http.createServer(app);
 const port = 8080;
 
-const MONGO_URL =
-  "mongodb+srv://quberger:quberger@musclewiki.gestbhi.mongodb.net/?retryWrites=true&w=majority";
+const MONGO_URL = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@musclewiki.gestbhi.mongodb.net/?retryWrites=true&w=majority`;
 
 server.listen(port, () => {
   console.log(`Server running on http://localhost:${port}/`);

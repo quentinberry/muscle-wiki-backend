@@ -1,8 +1,10 @@
 import express from "express";
 import { createUser, getUsersByEmail } from "../db/users";
-import { authentication, random } from "../helpers";
+
+// this is not included, but a nice example
 
 export const register = async (req: express.Request, res: express.Response) => {
+  /*
   try {
     const { email, password, username } = req.body;
 
@@ -29,4 +31,5 @@ export const register = async (req: express.Request, res: express.Response) => {
     console.log(error);
     return res.sendStatus(400);
   }
+  */
 };
