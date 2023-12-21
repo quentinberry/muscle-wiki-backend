@@ -85,6 +85,22 @@ export const addNewExercise = async (
     const {
       name,
       primaryTargetMuscle,
+      secondaryTargetMuscle = "",
+      secondaryTargetMuscleDetailed = [],
+      equipmentNeeded = [],
+      alternativeExerciseID = [],
+      description,
+      unilateral,
+      thumbnailImage = "",
+    }: ExerciseData = req.body;
+
+    if (!name || !primaryTargetMuscle || !description || !unilateral) {
+      console.log("Missing required fields");
+      return res.sendStatus(400);
+    }
+    const exercise = await addExercise({
+      name,
+      primaryTargetMuscle,
       secondaryTargetMuscle,
       secondaryTargetMuscleDetailed,
       equipmentNeeded,
@@ -92,23 +108,7 @@ export const addNewExercise = async (
       description,
       unilateral,
       thumbnailImage,
-    }: ExerciseData = req.body;
-    const newExercise = {
-      name,
-      primaryTargetMuscle,
-      secondaryTargetMuscle: secondaryTargetMuscle || "",
-      secondaryTargetMuscleDetailed: secondaryTargetMuscleDetailed || [],
-      equipmentNeeded: equipmentNeeded || [],
-      alternativeExerciseID: alternativeExerciseID || [],
-      description,
-      unilateral,
-      thumbnailImage: thumbnailImage || "",
-    };
-    if (!name || !primaryTargetMuscle || !description || !unilateral) {
-      console.log("Missing required fields");
-      return res.sendStatus(400);
-    }
-    const exercise = await addExercise(newExercise);
+    });
     return res.status(200).json(exercise).end();
   } catch (error) {
     console.log(error);
