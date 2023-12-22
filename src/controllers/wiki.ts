@@ -5,6 +5,7 @@ import {
   getExerciseBySecondaryTargetMuscle,
   addExercise,
   deleteExerciseById,
+  updateEntryById,
 } from "../db/wiki";
 
 interface ExerciseData {
@@ -136,6 +137,58 @@ export const deleteExercise = async (
     }
     const exercise = await deleteExerciseById(id);
     return res.status(200).json(exercise).end();
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+export const updateExercise = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { id } = req.params;
+    const {
+      name,
+      primaryTargetMuscle,
+      secondaryTargetMuscle = "",
+      secondaryTargetMuscleDetailed = [],
+      equipmentNeeded = [],
+      alternativeExerciseID = [],
+      description,
+      unilateral,
+      thumbnailImage = "",
+    }: ExerciseData = req.body;
+
+    if (!id) {
+      console.log("No id provided");
+      return res.sendStatus(400);
+    }
+
+    if (
+      !name ||
+      !primaryTargetMuscle ||
+      !description ||
+      unilateral === undefined
+    ) {
+      console.log("Missing required fields");
+      return res.sendStatus(400);
+    }
+
+    const updatedExercise = await updateEntryById(id, {
+      name,
+      primaryTargetMuscle,
+      secondaryTargetMuscle,
+      secondaryTargetMuscleDetailed,
+      equipmentNeeded,
+      alternativeExerciseID,
+      description,
+      unilateral,
+      thumbnailImage,
+    });
+
+    return res.status(200).json(updatedExercise).end();
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);

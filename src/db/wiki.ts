@@ -36,3 +36,12 @@ export const addExercise = (values: Record<string, any>) =>
     .then((exercise) => exercise.toObject());
 export const deleteExerciseById = (id: string) =>
   MuscleWikiExerciseModel.findByIdAndDelete(id);
+export const updateEntryById = (id: string, values: Record<string, any>) => {
+  MuscleWikiExerciseModel.findByIdAndUpdate(id, values).then((exercise) => {
+    if (exercise) {
+      return exercise.toObject();
+    } else {
+      return null;
+    }
+  });
+};
