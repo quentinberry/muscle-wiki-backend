@@ -34,3 +34,5 @@ export const addExercise = (values: Record<string, any>) =>
   new MuscleWikiExerciseModel(values)
     .save()
     .then((exercise) => exercise.toObject());
+export const deleteExerciseById = (id: string) =>
+  MuscleWikiExerciseModel.findByIdAndDelete(id);

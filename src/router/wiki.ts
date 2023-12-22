@@ -4,6 +4,7 @@ import {
   getAllExerciseByPrimaryTargetMuscle,
   getAllExercisesBySecondaryMuscle,
   addNewExercise,
+  deleteExercise,
 } from "../controllers/wiki";
 
 export default (router: express.Router) => {
@@ -17,4 +18,5 @@ export default (router: express.Router) => {
     getAllExercisesBySecondaryMuscle
   );
   router.post("/wiki/muscle/exercises", addNewExercise);
+  router.delete("/wiki/muscle/exercises/:id", deleteExercise);
 };

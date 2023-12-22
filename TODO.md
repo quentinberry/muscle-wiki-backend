@@ -1,0 +1,1 @@
+- Check a way to remove the endpoints to filter for secondary and primary muscle. Find a way to make it dynamic, so only one method is called with maybe query params

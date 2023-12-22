@@ -4,6 +4,7 @@ import {
   getExerciseByPrimaryTargetMuscle,
   getExerciseBySecondaryTargetMuscle,
   addExercise,
+  deleteExerciseById,
 } from "../db/wiki";
 import { ObjectId } from "mongodb";
 
@@ -117,6 +118,24 @@ export const addNewExercise = async (
       unilateral,
       thumbnailImage,
     });
+    return res.status(200).json(exercise).end();
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+export const deleteExercise = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      console.log("No id provided");
+      return res.sendStatus(400);
+    }
+    const exercise = await deleteExerciseById(id);
     return res.status(200).json(exercise).end();
   } catch (error) {
     console.log(error);
