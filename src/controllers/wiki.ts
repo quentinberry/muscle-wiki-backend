@@ -6,7 +6,6 @@ import {
   addExercise,
   deleteExerciseById,
 } from "../db/wiki";
-import { ObjectId } from "mongodb";
 
 interface ExerciseData {
   name: string;
