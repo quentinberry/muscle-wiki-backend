@@ -94,7 +94,15 @@ export const addNewExercise = async (
       thumbnailImage = "",
     }: ExerciseData = req.body;
 
-    if (!name || !primaryTargetMuscle || !description || !unilateral) {
+    console.log(req.body);
+    console.log(thumbnailImage);
+
+    if (
+      !name ||
+      !primaryTargetMuscle ||
+      !description ||
+      unilateral === undefined
+    ) {
       console.log("Missing required fields");
       return res.sendStatus(400);
     }
